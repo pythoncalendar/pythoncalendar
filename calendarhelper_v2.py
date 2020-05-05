@@ -78,11 +78,11 @@ for i in range(0, len(my_events)):
     row = my_events[i].row
     my_events_rows.append(row - 1)
 
-dates = events_sheet.get_col(1)
-titles = events_sheet.get_col(2)
-calls = events_sheet.get_col(3)
-ends = events_sheet.get_col(5)
-locations = events_sheet.get_col(6)
+dates       = events_sheet.get_col(1)
+titles      = events_sheet.get_col(2)
+calls       = events_sheet.get_col(3)
+ends        = events_sheet.get_col(5)
+locations   = events_sheet.get_col(6)
 
 for i in my_events_rows:
 
@@ -142,7 +142,7 @@ for i in my_events_rows:
     calevent = {
         'summary': name,
         'location': location,
-        'colorId': 11,  # where you can select the color of the event
+        'colorId': 11,          # where you can select the color of the event
         'description': 'Automatic creation',
         'start': {
             'dateTime': start_time.strftime("%Y-%m-%dT%H:%M:%S"),
