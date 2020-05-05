@@ -125,7 +125,7 @@ for i in my_events_rows:
     # location string
     location = locations[i]
 
-    # # for testing
+    # for testing
     # print("Name: " + name)
     # print("Year: " + str(year))
     # print("month: " + str(month))
