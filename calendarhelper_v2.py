@@ -25,7 +25,7 @@ months = {
 #     "Sage"      : 2
 #     "Grape"     : 3
 #     "Flamingo"  : 4 #changes made by me
-#     "Banana"    : 5
+#     "Banana"    : 5 #holla
 #     "Tangerine" : 6
 #     "Peacock"   : 7
 #     "Grapite"   : 8
