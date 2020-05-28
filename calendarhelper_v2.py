@@ -129,15 +129,15 @@ for i in my_events_rows:
     location = locations[i]
 
     # for testing
-    print("Name: " + name)
-    print("Year: " + str(year))
-    print("month: " + str(month))
-    print("date: " + str(date))
-    print("start hour: " + str(start_hour))
-    print("start minute: " + str(start_minute))
-    print("end hour: " + str(end_hour))
-    print("end minute: " + str(end_minute))
-    print("location: " + location)
+    # print("Name: " + name)
+    # print("Year: " + str(year))
+    # print("month: " + str(month))
+    # print("date: " + str(date))
+    # print("start hour: " + str(start_hour))
+    # print("start minute: " + str(start_minute))
+    # print("end hour: " + str(end_hour))
+    # print("end minute: " + str(end_minute))
+    # print("location: " + location)
 
     # create the calendar event
     start_time = datetime(year, month, date, start_hour, start_minute, 0)
