@@ -37,9 +37,12 @@ months = {
 now = datetime.now()
 
 
-def hasNumbers(inputString):
-    return any(char.isdigit() for char in inputString)
+def hasnumbers(inputstring):
+    return any(char.isdigit() for char in inputstring)
 
+calendarId = "adamdh00@gmail.com"
+colorId = 11
+initials = "ADH"
 
 # makes available the google sheet
 gc = pygsheets.authorize(
@@ -60,18 +63,18 @@ service = build("calendar", "v3", credentials=credentials)
 # delete future events
 timeMin = now.isoformat('T') + "-05:00"
 timeMax = (now + timedelta(days=90)).isoformat('T') + "-05:00"  # 90 days into the future to look for events to delete
-result = service.events().list(calendarId="adamdh00@gmail.com", timeMin=timeMin, timeMax=timeMax).execute()
+result = service.events().list(calendarId=calendarId, timeMin=timeMin, timeMax=timeMax).execute()
 for i in range(0, len(result['items'])):
     try:
         if result['items'][i]['description'] == 'Automatic creation':
-            service.events().delete(calendarId="adamdh00@gmail.com", eventId=result['items'][i]['id']).execute()
+            service.events().delete(calendarId=calendarId, eventId=result['items'][i]['id']).execute()
     except:
         pass
 
 # use only the event sheet within the workbook
 events_sheet = copy.deepcopy(sh[1])
 
-my_events = events_sheet.find("ADH", cols=(7, 9))  # .find() can be restricted to only a certain row.
+my_events = events_sheet.find(initials, cols=(7, 9) ) 
 
 my_events_rows = []
 for i in range(0, len(my_events)):
@@ -102,7 +105,7 @@ for i in my_events_rows:
 
     # call hour and minute ints
     call_string = calls[i]
-    if hasNumbers(call_string):
+    if hasnumbers(call_string):
         start_hour = int(call_string.split(':')[0])
         start_minute = int(call_string.split(':')[1][0:2])
         if call_string.split(':')[1][-2:] == "PM" and start_hour != 12:
@@ -113,7 +116,7 @@ for i in my_events_rows:
 
     # end hour and minute ints
     end_string = ends[i]
-    if hasNumbers(end_string):
+    if hasnumbers(end_string):
         end_hour = int(end_string.split(':')[0])
         end_minute = int(end_string.split(':')[1][0:2])
         if end_string.split(':')[1][-2:] == "PM" and end_hour != 12:
@@ -125,16 +128,16 @@ for i in my_events_rows:
     # location string
     location = locations[i]
 
-    # # for testing
-    # print("Name: " + name)
-    # print("Year: " + str(year))
-    # print("month: " + str(month))
-    # print("date: " + str(date))
-    # print("start hour: " + str(start_hour))
-    # print("start minute: " + str(start_minute))
-    # print("end hour: " + str(end_hour))
-    # print("end minute: " + str(end_minute))
-    # print("location: " + location)
+    # for testing
+    print("Name: " + name)
+    print("Year: " + str(year))
+    print("month: " + str(month))
+    print("date: " + str(date))
+    print("start hour: " + str(start_hour))
+    print("start minute: " + str(start_minute))
+    print("end hour: " + str(end_hour))
+    print("end minute: " + str(end_minute))
+    print("location: " + location)
 
     # create the calendar event
     start_time = datetime(year, month, date, start_hour, start_minute, 0)
@@ -142,7 +145,7 @@ for i in my_events_rows:
     calevent = {
         'summary': name,
         'location': location,
-        'colorId': 11,          # where you can select the color of the event
+        'colorId': colorId,          # where you can select the color of the event
         'description': 'Automatic creation',
         'start': {
             'dateTime': start_time.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -158,6 +161,6 @@ for i in my_events_rows:
     }
 
     # adds calendar event
-    if hasNumbers(end_string) and now < start_time:
-        service.events().insert(calendarId="adamdh00@gmail.com", body=calevent).execute()  # DANGER LINE
+    if hasnumbers(end_string) and now < start_time:
+        service.events().insert(calendarId=calendarId, body=calevent).execute()  # DANGER LINE
         # pass          # here for when the previous line is commented out
