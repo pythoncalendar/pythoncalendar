@@ -40,24 +40,24 @@ now = datetime.now()
 def hasnumbers(inputstring):
     return any(char.isdigit() for char in inputstring)
 
-calendarId = "adamdh00@gmail.com"
+calendarId = "masonvanmeurs7@gmail.com"
 colorId = 11
-initials = "ADH"
+initials = "MVM"
 
 # makes available the google sheet
 gc = pygsheets.authorize(
-    client_secret="/Users/adamdenhaan/Documents/pycalauth/client_secret_145372556979-b6di5pm67tdbpmipr6al0mein5eeq1aq.apps.googleusercontent.com.json",
-    credentials_directory="/Users/adamdenhaan/Documents/pycalauth")
+    client_secret="\clcserver\RedirectedFolders\CSchumacker\Documents\pythoncalendar\client_secret_812372276060-07r15576sro0ke1akjg95piuv4hve57k.apps.googleusercontent.com.json",
+    credentials_directory="\clcserver\RedirectedFolders\CSchumacker\Documents\pythoncalendar")
 sh = gc.open_by_key("1UpfKu7Hrn8_-gR9BGGmM8s8dth3EAVVvx4sBybGNAHI")
 
 # makes available the google calendar
 scopes = ['https://www.googleapis.com/auth/calendar']
 flow = InstalledAppFlow.from_client_secrets_file(
-    "/Users/adamdenhaan/Documents/pycalauth/client_secret_728152513941-fldfta8n2c25rm77k8c836ldvmlnk4ub.apps.googleusercontent.com.json",
+    "\clcserver\RedirectedFolders\CSchumacker\Documents\pythoncalendar\pythoncalendar-278601-48730c935973.json",
     scopes=scopes)
-# credentials = flow.run_console()                      #to be run once
-# pickle.dump(credentials, open("token.pkl", "wb"))     #to be run once
-credentials = pickle.load(open("/Users/adamdenhaan/Documents/pycalauth/token.pkl", "rb"))
+ credentials = flow.run_console()                      #to be run once
+ pickle.dump(credentials, open("token.pkl", "wb"))     #to be run once
+credentials = pickle.load(open("\clcserver\RedirectedFolders\CSchumacker\Documents\pythoncalendar\\token.pkl", "rb"))
 service = build("calendar", "v3", credentials=credentials)
 
 # delete future events
