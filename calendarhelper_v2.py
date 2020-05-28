@@ -64,12 +64,16 @@ service = build("calendar", "v3", credentials=credentials)
 timeMin = now.isoformat('T') + "-05:00"
 timeMax = (now + timedelta(days=90)).isoformat('T') + "-05:00"  # 90 days into the future to look for events to delete
 result = service.events().list(calendarId=calendarId, timeMin=timeMin, timeMax=timeMax).execute()
+delete_events_id = []
 for i in range(0, len(result['items'])):
     try:
         if result['items'][i]['description'][:18] == 'Automatic creation':
-            service.events().delete(calendarId=calendarId, eventId=result['items'][i]['id']).execute()
+            delete_events_id.append(result['items'][i]['id'])
     except:
         pass
+
+for i in delete_events_id:
+    service.events().delete(calendarId=calendarId, eventId = i).execute()
 
 # use only the event sheet within the workbook
 events_sheet = copy.deepcopy(sh[1])
