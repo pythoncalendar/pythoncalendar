@@ -46,18 +46,18 @@ initials = "MVM"
 
 # makes available the google sheet
 gc = pygsheets.authorize(
-    client_secret="\clcserver\RedirectedFolders\CSchumacker\Documents\pythoncalendar\client_secret_812372276060-07r15576sro0ke1akjg95piuv4hve57k.apps.googleusercontent.com.json",
-    credentials_directory="\clcserver\RedirectedFolders\CSchumacker\Documents\pythoncalendar")
+    client_secret="C:\Users\CSchumacker\Documents\pycal\client_secret_812372276060-07r15576sro0ke1akjg95piuv4hve57k.apps.googleusercontent.com.json",
+    credentials_directory="C:\Users\CSchumacker\Documents\pycal")
 sh = gc.open_by_key("1UpfKu7Hrn8_-gR9BGGmM8s8dth3EAVVvx4sBybGNAHI")
 
 # makes available the google calendar
 scopes = ['https://www.googleapis.com/auth/calendar']
 flow = InstalledAppFlow.from_client_secrets_file(
-    "\clcserver\RedirectedFolders\CSchumacker\Documents\pythoncalendar\pythoncalendar-278601-48730c935973.json",
+    "C:\Users\CSchumacker\Documents\pycal\pythoncalendar-278601-48730c935973.json",
     scopes=scopes)
- credentials = flow.run_console()                      #to be run once
- pickle.dump(credentials, open("token.pkl", "wb"))     #to be run once
-credentials = pickle.load(open("\clcserver\RedirectedFolders\CSchumacker\Documents\pythoncalendar\\token.pkl", "rb"))
+credentials = flow.run_console()                      #to be run once
+pickle.dump(credentials, open("token.pkl", "wb"))     #to be run once
+credentials = pickle.load(open("C:\Users\CSchumacker\Documents\pycal\\token.pkl", "rb"))
 service = build("calendar", "v3", credentials=credentials)
 
 # delete future events
