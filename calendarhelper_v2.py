@@ -66,7 +66,7 @@ timeMax = (now + timedelta(days=90)).isoformat('T') + "-05:00"  # 90 days into t
 result = service.events().list(calendarId=calendarId, timeMin=timeMin, timeMax=timeMax).execute()
 for i in range(0, len(result['items'])):
     try:
-        if result['items'][i]['description'] == 'Automatic creation':
+        if result['items'][i]['description'][:18] == 'Automatic creation':
             service.events().delete(calendarId=calendarId, eventId=result['items'][i]['id']).execute()
     except:
         pass
@@ -86,6 +86,8 @@ titles      = events_sheet.get_col(2)
 calls       = events_sheet.get_col(3)
 ends        = events_sheet.get_col(5)
 locations   = events_sheet.get_col(6)
+records     = events_sheet.get_col(8)
+event_coords= events_sheet.get_col(10)
 
 for i in my_events_rows:
 
@@ -128,6 +130,18 @@ for i in my_events_rows:
     # location string
     location = locations[i]
 
+    #record string
+    if records[i] == "Yes":
+        record = "Yes"
+    else:
+        record = "No"
+
+    # Event coordinator string
+    event_coord = event_coords[i]
+
+    # Description string
+    descripion = 'Automatic creation\nEvent Coordinator: ' + event_coord + '\nRecord: ' + record
+
     # for testing
     # print("Name: " + name)
     # print("Year: " + str(year))
@@ -146,7 +160,7 @@ for i in my_events_rows:
         'summary': name,
         'location': location,
         'colorId': colorId,          # where you can select the color of the event
-        'description': 'Automatic creation',
+        'description': descripion,
         'start': {
             'dateTime': start_time.strftime("%Y-%m-%dT%H:%M:%S"),
             'timeZone': "America/New_York",
