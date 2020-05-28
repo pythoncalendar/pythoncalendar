@@ -85,13 +85,13 @@ for i in range(0, len(my_events)):
     row = my_events[i].row
     my_events_rows.append(row - 1)
 
-dates       = events_sheet.get_col(1)
-titles      = events_sheet.get_col(2)
-calls       = events_sheet.get_col(3)
-ends        = events_sheet.get_col(5)
-locations   = events_sheet.get_col(6)
-records     = events_sheet.get_col(8)
-event_coords= events_sheet.get_col(10)
+dates           = events_sheet.get_col(1)
+titles          = events_sheet.get_col(2)
+calls           = events_sheet.get_col(3)
+ends            = events_sheet.get_col(5)
+locations       = events_sheet.get_col(6)
+records         = events_sheet.get_col(8)
+event_coords    = events_sheet.get_col(14)
 
 for i in my_events_rows:
 
@@ -147,15 +147,17 @@ for i in my_events_rows:
     descripion = 'Automatic creation\nEvent Coordinator: ' + event_coord + '\nRecord: ' + record
 
     # for testing
-    # print("Name: " + name)
-    # print("Year: " + str(year))
-    # print("month: " + str(month))
-    # print("date: " + str(date))
-    # print("start hour: " + str(start_hour))
-    # print("start minute: " + str(start_minute))
-    # print("end hour: " + str(end_hour))
-    # print("end minute: " + str(end_minute))
-    # print("location: " + location)
+    # print("Name................" + name)
+    # print("Year................" + str(year))
+    # print("Month..............." + str(month))
+    # print("Date................" + str(date))
+    # print("Start hour.........." + str(start_hour))
+    # print("Start minute........" + str(start_minute))
+    # print("End hour............" + str(end_hour))
+    # print("End minute.........." + str(end_minute))
+    # print("Location............" + location)
+    # print("Record.............." + record)
+    # print("Event coordinator..." + event_coord)
 
     # create the calendar event
     start_time = datetime(year, month, date, start_hour, start_minute, 0)
