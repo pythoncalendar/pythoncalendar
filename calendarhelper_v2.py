@@ -82,6 +82,7 @@ for i in delete_events_id:
 
 # use only the event sheet within the workbook
 events_sheet = copy.deepcopy(sh[1])
+contact_list = copy.deepcopy(sh[3])
 
 my_events = events_sheet.find(initials, cols=(7, 9) ) 
 
@@ -93,10 +94,17 @@ for i in range(0, len(my_events)):
 dates           = events_sheet.get_col(1)
 titles          = events_sheet.get_col(2)
 calls           = events_sheet.get_col(3)
+starts          = events_sheet.get_col(4)
 ends            = events_sheet.get_col(5)
 locations       = events_sheet.get_col(6)
 records         = events_sheet.get_col(8)
 event_coords    = events_sheet.get_col(14)
+coord_names     = contact_list.get_col(1)
+coord_nums      = contact_list.get_col(4)
+
+coord_dict = {}
+for i in range(2, 11):
+    coord_dict[coord_names[i]] = coord_nums[i]
 
 for i in my_events_rows:
 
@@ -145,11 +153,23 @@ for i in my_events_rows:
     else:
         record = "No"
 
+    #start string
+    start = starts[i]
+
     # Event coordinator string
     event_coord = event_coords[i]
 
+    # Event coordinator phone
+    try:
+        coord_num = coord_dict[event_coord]
+    except:
+        coord_num = "N/A"
+
     # Description string
-    descripion = 'Automatic creation\nEvent Coordinator: ' + event_coord + '\nRecord: ' + record
+    descripion = ('Automatic creation\nEvent Start Time: ' + start + 
+        '\nEvent Coordinator: ' + event_coord + 
+        '\n Event Coordinator Number: ' + coord_num + 
+        '\nRecord: ' + record)
 
     # for testing
     # print("Name................" + name)
@@ -163,6 +183,7 @@ for i in my_events_rows:
     # print("Location............" + location)
     # print("Record.............." + record)
     # print("Event coordinator..." + event_coord)
+    # print("Coordinator num....." + coord_num)
 
     # create the calendar event
     start_time = datetime(year, month, date, start_hour, start_minute, 0)
