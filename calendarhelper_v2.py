@@ -1,6 +1,7 @@
 import pygsheets
 import copy
 import pickle
+import os.path
 from apiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from datetime import *
@@ -50,29 +51,39 @@ gc = pygsheets.authorize(
     credentials_directory="C:\Users\CSchumacker\Documents\pycal")
 sh = gc.open_by_key("1UpfKu7Hrn8_-gR9BGGmM8s8dth3EAVVvx4sBybGNAHI")
 
+
 # makes available the google calendar
 scopes = ['https://www.googleapis.com/auth/calendar']
-flow = InstalledAppFlow.from_client_secrets_file(
+if os.path.exists('/Users/adamdenhaan/Documents/pycalauth/token.pkl'):
+    with open("/Users/adamdenhaan/Documents/pycalauth/token.pkl", "rb") as token:
+        credentials = pickle.load(token)
+else:
+    flow = InstalledAppFlow.from_client_secrets_file(
     "C:\Users\CSchumacker\Documents\pycal\pythoncalendar-278601-48730c935973.json",
     scopes=scopes)
-credentials = flow.run_console()                      #to be run once
-pickle.dump(credentials, open("token.pkl", "wb"))     #to be run once
-credentials = pickle.load(open("C:\Users\CSchumacker\Documents\pycal\\token.pkl", "rb"))
+    credentials = flow.run_console()      
+    with open("C:\Users\CSchumacker\Documents\pycal\\token.pkl", "rb") as token:
+        pickle.dump(credentials, token)
 service = build("calendar", "v3", credentials=credentials)
 
 # delete future events
 timeMin = now.isoformat('T') + "-05:00"
 timeMax = (now + timedelta(days=90)).isoformat('T') + "-05:00"  # 90 days into the future to look for events to delete
 result = service.events().list(calendarId=calendarId, timeMin=timeMin, timeMax=timeMax).execute()
+delete_events_id = []
 for i in range(0, len(result['items'])):
     try:
-        if result['items'][i]['description'] == 'Automatic creation':
-            service.events().delete(calendarId=calendarId, eventId=result['items'][i]['id']).execute()
+        if result['items'][i]['description'][:18] == 'Automatic creation':
+            delete_events_id.append(result['items'][i]['id'])
     except:
         pass
 
+for i in delete_events_id:
+    service.events().delete(calendarId=calendarId, eventId = i).execute()
+
 # use only the event sheet within the workbook
 events_sheet = copy.deepcopy(sh[1])
+
 
 my_events = events_sheet.find(initials, cols=(7, 9) ) 
 
@@ -81,11 +92,14 @@ for i in range(0, len(my_events)):
     row = my_events[i].row
     my_events_rows.append(row - 1)
 
-dates       = events_sheet.get_col(1)
-titles      = events_sheet.get_col(2)
-calls       = events_sheet.get_col(3)
-ends        = events_sheet.get_col(5)
-locations   = events_sheet.get_col(6)
+dates           = events_sheet.get_col(1)
+titles          = events_sheet.get_col(2)
+calls           = events_sheet.get_col(3)
+starts          = events_sheet.get_col(4)
+ends            = events_sheet.get_col(5)
+locations       = events_sheet.get_col(6)
+records         = events_sheet.get_col(8)
+event_coords    = events_sheet.get_col(14)
 
 for i in my_events_rows:
 
@@ -128,16 +142,33 @@ for i in my_events_rows:
     # location string
     location = locations[i]
 
+    #record string
+    if records[i] == "Yes":
+        record = "Yes"
+    else:
+        record = "No"
+
+    #start string
+    start = starts[i]
+
+    # Event coordinator string
+    event_coord = event_coords[i]
+
+    # Description string
+    descripion = 'Automatic creation\nEvent Start Time: ' + start + '\nEvent Coordinator: ' + event_coord + '\nRecord: ' + record
+
     # for testing
-    print("Name: " + name)
-    print("Year: " + str(year))
-    print("month: " + str(month))
-    print("date: " + str(date))
-    print("start hour: " + str(start_hour))
-    print("start minute: " + str(start_minute))
-    print("end hour: " + str(end_hour))
-    print("end minute: " + str(end_minute))
-    print("location: " + location)
+    # print("Name................" + name)
+    # print("Year................" + str(year))
+    # print("Month..............." + str(month))
+    # print("Date................" + str(date))
+    # print("Start hour.........." + str(start_hour))
+    # print("Start minute........" + str(start_minute))
+    # print("End hour............" + str(end_hour))
+    # print("End minute.........." + str(end_minute))
+    # print("Location............" + location)
+    # print("Record.............." + record)
+    # print("Event coordinator..." + event_coord)
 
     # create the calendar event
     start_time = datetime(year, month, date, start_hour, start_minute, 0)
@@ -146,14 +177,14 @@ for i in my_events_rows:
         'summary': name,
         'location': location,
         'colorId': colorId,          # where you can select the color of the event
-        'description': 'Automatic creation',
+        'description': descripion,
         'start': {
             'dateTime': start_time.strftime("%Y-%m-%dT%H:%M:%S"),
-            'timeZone': "America/New_York",
+            'timeZone': "America/Detroit",
         },
         'end': {
             'dateTime': end_time.strftime("%Y-%m-%dT%H:%M:%S"),
-            'timeZone': "America/New_York",
+            'timeZone': "America/Detroit",
         },
         'reminders': {
             'useDefault': True,
