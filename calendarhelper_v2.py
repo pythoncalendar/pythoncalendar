@@ -49,7 +49,9 @@ initials = "ADH"
 gc = pygsheets.authorize(
     client_secret="/Users/adamdenhaan/Documents/pycalauth/client_secret_145372556979-b6di5pm67tdbpmipr6al0mein5eeq1aq.apps.googleusercontent.com.json",
     credentials_directory="/Users/adamdenhaan/Documents/pycalauth")
-sh = gc.open_by_key("1UpfKu7Hrn8_-gR9BGGmM8s8dth3EAVVvx4sBybGNAHI")
+# sh = gc.open_by_key("1UpfKu7Hrn8_-gR9BGGmM8s8dth3EAVVvx4sBybGNAHI")
+sh = gc.open_by_key("1jLEfucP49UpBbbrtjcMK8PDN_5UvL3zzUSmoZFC_u1E")
+
 
 # makes available the google calendar
 scopes = ['https://www.googleapis.com/auth/calendar']
@@ -81,7 +83,9 @@ for i in delete_events_id:
     service.events().delete(calendarId=calendarId, eventId = i).execute()
 
 # use only the event sheet within the workbook
-events_sheet = copy.deepcopy(sh[1])
+# events_sheet = copy.deepcopy(sh[1])
+events_sheet = copy.deepcopy(sh[0])
+
 
 my_events = events_sheet.find(initials, cols=(7, 9) ) 
 
@@ -93,6 +97,7 @@ for i in range(0, len(my_events)):
 dates           = events_sheet.get_col(1)
 titles          = events_sheet.get_col(2)
 calls           = events_sheet.get_col(3)
+starts          = events_sheet.get_col(4)
 ends            = events_sheet.get_col(5)
 locations       = events_sheet.get_col(6)
 records         = events_sheet.get_col(8)
@@ -145,11 +150,14 @@ for i in my_events_rows:
     else:
         record = "No"
 
+    #start string
+    start = starts[i]
+
     # Event coordinator string
     event_coord = event_coords[i]
 
     # Description string
-    descripion = 'Automatic creation\nEvent Coordinator: ' + event_coord + '\nRecord: ' + record
+    descripion = 'Automatic creation\nEvent Start Time: ' + start + '\nEvent Coordinator: ' + event_coord + '\nRecord: ' + record
 
     # for testing
     # print("Name................" + name)
@@ -174,11 +182,11 @@ for i in my_events_rows:
         'description': descripion,
         'start': {
             'dateTime': start_time.strftime("%Y-%m-%dT%H:%M:%S"),
-            'timeZone': "America/New_York",
+            'timeZone': "America/Detroit",
         },
         'end': {
             'dateTime': end_time.strftime("%Y-%m-%dT%H:%M:%S"),
-            'timeZone': "America/New_York",
+            'timeZone': "America/Detroit",
         },
         'reminders': {
             'useDefault': True,
