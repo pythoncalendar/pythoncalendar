@@ -49,8 +49,7 @@ initials = "ADH"
 gc = pygsheets.authorize(
     client_secret="/Users/adamdenhaan/Documents/pycalauth/client_secret_145372556979-b6di5pm67tdbpmipr6al0mein5eeq1aq.apps.googleusercontent.com.json",
     credentials_directory="/Users/adamdenhaan/Documents/pycalauth")
-# sh = gc.open_by_key("1UpfKu7Hrn8_-gR9BGGmM8s8dth3EAVVvx4sBybGNAHI")
-sh = gc.open_by_key("1jLEfucP49UpBbbrtjcMK8PDN_5UvL3zzUSmoZFC_u1E")
+sh = gc.open_by_key("1UpfKu7Hrn8_-gR9BGGmM8s8dth3EAVVvx4sBybGNAHI")
 
 
 # makes available the google calendar
@@ -83,8 +82,7 @@ for i in delete_events_id:
     service.events().delete(calendarId=calendarId, eventId = i).execute()
 
 # use only the event sheet within the workbook
-# events_sheet = copy.deepcopy(sh[1])
-events_sheet = copy.deepcopy(sh[0])
+events_sheet = copy.deepcopy(sh[1])
 
 
 my_events = events_sheet.find(initials, cols=(7, 9) ) 
