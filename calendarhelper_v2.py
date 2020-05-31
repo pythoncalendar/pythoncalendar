@@ -1,3 +1,9 @@
+'''A script to take event information on the master schedule and translate them to a personal calendar
+created April 2020
+for personal and eventually crew use
+by Adam D. DenHaan with extenstions by Mason R. VanMeurs
+'''
+
 import pygsheets
 import copy
 import pickle
@@ -35,11 +41,11 @@ months = {
 #     "Tomato"    : 11
 # }
 
-now = datetime.now()
-
-
 def hasnumbers(inputstring):
     return any(char.isdigit() for char in inputstring)
+    
+
+now = datetime.now()
 
 calendarId = "adamdh00@gmail.com"
 colorId = 11
