@@ -41,9 +41,8 @@ months = {
 #     "Tomato"    : 11
 # }
 
-def hasnumbers(inputstring):
-    return any(char.isdigit() for char in inputstring)
-    
+
+hasnumbers = lambda inputstring: any(char.isdigit() for char in inputstring)
 
 now = datetime.now()
 
