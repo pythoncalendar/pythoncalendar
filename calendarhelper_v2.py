@@ -117,6 +117,8 @@ coord_nums      = contact_list.get_col(4)
 coord_dict = {}
 for i in range(2, 11):
     coord_dict[coord_names[i]] = coord_nums[i]
+for i in range(72,75):
+    coord_dict[coord_names[i]] = coord_nums[i]
 
 for i in my_events_rows:
 
@@ -184,18 +186,18 @@ for i in my_events_rows:
         '\nRecord: ' + record)
 
     # for testing
-    # print("Name................" + name)
-    # print("Year................" + str(year))
-    # print("Month..............." + str(month))
-    # print("Date................" + str(date))
-    # print("Start hour.........." + str(start_hour))
-    # print("Start minute........" + str(start_minute))
-    # print("End hour............" + str(end_hour))
-    # print("End minute.........." + str(end_minute))
-    # print("Location............" + location)
-    # print("Record.............." + record)
-    # print("Event coordinator..." + event_coord)
-    # print("Coordinator num....." + coord_num + '\n')
+    print("Name................" + name)
+    print("Year................" + str(year))
+    print("Month..............." + str(month))
+    print("Date................" + str(date))
+    print("Start hour.........." + str(start_hour))
+    print("Start minute........" + str(start_minute))
+    print("End hour............" + str(end_hour))
+    print("End minute.........." + str(end_minute))
+    print("Location............" + location)
+    print("Record.............." + record)
+    print("Event coordinator..." + event_coord)
+    print("Coordinator num....." + coord_num + '\n')
 
     # create the calendar event
     start_time = datetime(year, month, date, start_hour, start_minute, 0)
