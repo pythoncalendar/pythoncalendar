@@ -89,12 +89,19 @@ for i in delete_events_id:
 events_sheet = copy.deepcopy(sh[1])
 contact_list = copy.deepcopy(sh[3])
 
-my_events = events_sheet.find(initials, cols=(7, 9) ) 
-
 my_events_rows = []
+my_events = events_sheet.find(initials, cols=(7, 9) ) 
 for i in range(0, len(my_events)):
     row = my_events[i].row
     my_events_rows.append(row - 1)
+
+all_events_rows = []
+everyone_events = events_sheet.find('ALL', cols=(1,7), matchEntireCell = True)
+for i in range(0, len(everyone_events)):
+    row = everyone_events[i].row
+    my_events_rows.append(row - 1)
+
+# my_events_rows.sort() #useful in testing
 
 dates           = events_sheet.get_col(1)
 titles          = events_sheet.get_col(2)
@@ -188,7 +195,7 @@ for i in my_events_rows:
     # print("Location............" + location)
     # print("Record.............." + record)
     # print("Event coordinator..." + event_coord)
-    # print("Coordinator num....." + coord_num)
+    # print("Coordinator num....." + coord_num + '\n')
 
     # create the calendar event
     start_time = datetime(year, month, date, start_hour, start_minute, 0)
