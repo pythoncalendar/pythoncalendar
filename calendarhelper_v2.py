@@ -79,7 +79,7 @@ for i in range(0, len(result['items'])):
     try:
         if result['items'][i]['description'][:18] == 'Automatic creation':
             delete_events_id.append(result['items'][i]['id'])
-    except:
+    except:     #not all event have a feild 'description', and raises an error if there is no feild. Addressed by skipping event as its not ours
         pass
 
 for i in delete_events_id:
@@ -186,18 +186,18 @@ for i in my_events_rows:
         '\nRecord: ' + record)
 
     # for testing
-    print("Name................" + name)
-    print("Year................" + str(year))
-    print("Month..............." + str(month))
-    print("Date................" + str(date))
-    print("Start hour.........." + str(start_hour))
-    print("Start minute........" + str(start_minute))
-    print("End hour............" + str(end_hour))
-    print("End minute.........." + str(end_minute))
-    print("Location............" + location)
-    print("Record.............." + record)
-    print("Event coordinator..." + event_coord)
-    print("Coordinator num....." + coord_num + '\n')
+    # print("Name................" + name)
+    # print("Year................" + str(year))
+    # print("Month..............." + str(month))
+    # print("Date................" + str(date))
+    # print("Start hour.........." + str(start_hour))
+    # print("Start minute........" + str(start_minute))
+    # print("End hour............" + str(end_hour))
+    # print("End minute.........." + str(end_minute))
+    # print("Location............" + location)
+    # print("Record.............." + record)
+    # print("Event coordinator..." + event_coord)
+    # print("Coordinator num....." + coord_num + '\n')
 
     # create the calendar event
     start_time = datetime(year, month, date, start_hour, start_minute, 0)
