@@ -107,7 +107,6 @@ for i in range(0, len(my_events)):
     row = my_events[i].row
     my_events_rows.append(row - 1)
 
-all_events_rows = []
 everyone_events = events_sheet.find('ALL', cols=(1,7), matchEntireCell = True)
 for i in range(0, len(everyone_events)):
     row = everyone_events[i].row
