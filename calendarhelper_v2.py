@@ -8,9 +8,10 @@ import pygsheets
 import copy
 import pickle
 import os.path
-from apiclient.discovery import build
+from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
-from datetime import *
+from datetime import datetime, timedelta
+from time import sleep
 
 months = {
     "Jan": 1,
@@ -70,20 +71,31 @@ else:
         pickle.dump(credentials, token)    
 service = build("calendar", "v3", credentials=credentials)
 
-# delete future events
-timeMin = now.isoformat('T') + "-05:00"
-timeMax = (now + timedelta(days=90)).isoformat('T') + "-05:00"  # 90 days into the future to look for events to delete
-result = service.events().list(calendarId=calendarId, timeMin=timeMin, timeMax=timeMax).execute()
-delete_events_id = []
-for i in range(0, len(result['items'])):
-    try:
-        if result['items'][i]['description'][:18] == 'Automatic creation':
-            delete_events_id.append(result['items'][i]['id'])
-    except:     #not all event have a feild 'description', and raises an error if there is no feild. Addressed by skipping event as its not ours
-        pass
+while True:
+    j = 0
+    # delete future events
+    timeMin = now.isoformat('T') + "-05:00"
+    timeMax = (now + timedelta(days=90)).isoformat('T') + "-05:00"  # 90 days into the future to look for events to delete
+    result = service.events().list(calendarId=calendarId, timeMin=timeMin, timeMax=timeMax).execute()
+    delete_events_id = []
+    for i in range(0, len(result['items'])):
+        try:
+            if result['items'][i]['description'][:18] == 'Automatic creation':
+                delete_events_id.append(result['items'][i]['id'])
+        except:     #not all event have a feild 'description', and raises an error if there is no feild. Addressed by skipping event as its not ours
+            pass
 
-for i in delete_events_id:
-    service.events().delete(calendarId=calendarId, eventId = i).execute()
+
+    for i in delete_events_id:
+        try:
+            service.events().delete(calendarId=calendarId, eventId = i).execute()
+            j += 1
+        except:
+            sleep(1)
+            service.events().delete(calendarId=calendarId, eventId = i).execute()
+            j += 1
+    if j == 0:
+        break
 
 # use only the event sheet within the workbook
 events_sheet = copy.deepcopy(sh[1])
@@ -182,7 +194,7 @@ for i in my_events_rows:
     # Description string
     descripion = ('Automatic creation\nEvent Start Time: ' + start + 
         '\nEvent Coordinator: ' + event_coord + 
-        '\n Event Coordinator Number: ' + coord_num + 
+        '\nEvent Coordinator Number: ' + coord_num + 
         '\nRecord: ' + record)
 
     # for testing
@@ -222,5 +234,8 @@ for i in my_events_rows:
 
     # adds calendar event
     if hasnumbers(end_string) and now < start_time:
-        service.events().insert(calendarId=calendarId, body=calevent).execute()  # DANGER LINE
-        # pass          # here for when the previous line is commented out
+        try:
+            service.events().insert(calendarId=calendarId, body=calevent).execute()  # DANGER LINE
+        except:
+            sleep(1)
+            service.events().insert(calendarId=calendarId, body=calevent).execute()
