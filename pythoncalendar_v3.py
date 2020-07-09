@@ -34,8 +34,10 @@ def calhelp(initials, calendarId, directory, sheet_secret_name, cal_secret_name,
         initials (string): intials to search for on the sheet
         calendarId (string): calendar ID of the calendar to write events to
         directory (string): location of where to store credential files
+        sheet_secret_name (string): filename of the sheet secret name
+        cal_secret_name (string): filename of the calendar secret name
         colorID (int, optional): color of the events on the calendar. Defaults to 11.
-    """    
+    """
 
     months = {
         "Jan": 1,
