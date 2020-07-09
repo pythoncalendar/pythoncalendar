@@ -27,7 +27,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from datetime import datetime, timedelta
 from time import sleep
 
-def calhelp(initials, calendarId, directory, colorID = 11):
+def calhelp(initials, calendarId, directory, sheet_secret_name, cal_secret_name, colorID = 11):
     """designed to facilitate the use of v2
 
     Args:
@@ -58,7 +58,7 @@ def calhelp(initials, calendarId, directory, colorID = 11):
 
     # makes available the google sheet
     gc = pygsheets.authorize(
-        client_secret="/Users/adamdenhaan/Documents/pycalauth/client_secret_145372556979-b6di5pm67tdbpmipr6al0mein5eeq1aq.apps.googleusercontent.com.json",
+        client_secret= directory + "/" + sheet_secret_name,
         credentials_directory=directory, local=True)
     sh = gc.open_by_key("1UpfKu7Hrn8_-gR9BGGmM8s8dth3EAVVvx4sBybGNAHI")
 
@@ -70,7 +70,7 @@ def calhelp(initials, calendarId, directory, colorID = 11):
             credentials = pickle.load(token)
     else:
         flow = InstalledAppFlow.from_client_secrets_file(
-        "/Users/adamdenhaan/Documents/pycalauth/client_secret_728152513941-fldfta8n2c25rm77k8c836ldvmlnk4ub.apps.googleusercontent.com.json",
+        directory + "/" + cal_secret_name,
         scopes=scopes)
         credentials = flow.run_local_server(port=0)
         with open(pklstr, "wb") as token:
@@ -234,4 +234,6 @@ if __name__ == '__main__':
     calhelp(initials="ADH",
     calendarId="adamdh00@gmail.com",
     directory="/Users/adamdenhaan/Documents/pycalauth",
+    sheet_secret_name="client_secret_145372556979-b6di5pm67tdbpmipr6al0mein5eeq1aq.apps.googleusercontent.com.json",
+    cal_secret_name="client_secret_728152513941-fldfta8n2c25rm77k8c836ldvmlnk4ub.apps.googleusercontent.com.json",
     colorID=11)
