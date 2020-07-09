@@ -59,7 +59,7 @@ def calhelp(initials, calendarId, directory, colorID = 11):
     # makes available the google sheet
     gc = pygsheets.authorize(
         client_secret="/Users/adamdenhaan/Documents/pycalauth/client_secret_145372556979-b6di5pm67tdbpmipr6al0mein5eeq1aq.apps.googleusercontent.com.json",
-        credentials_directory=directory)
+        credentials_directory=directory, local=True)
     sh = gc.open_by_key("1UpfKu7Hrn8_-gR9BGGmM8s8dth3EAVVvx4sBybGNAHI")
 
     # makes available the google calendar
@@ -72,7 +72,7 @@ def calhelp(initials, calendarId, directory, colorID = 11):
         flow = InstalledAppFlow.from_client_secrets_file(
         "/Users/adamdenhaan/Documents/pycalauth/client_secret_728152513941-fldfta8n2c25rm77k8c836ldvmlnk4ub.apps.googleusercontent.com.json",
         scopes=scopes)
-        credentials = flow.run_console()      
+        credentials = flow.run_local_server(port=0)
         with open(pklstr, "wb") as token:
             pickle.dump(credentials, token)    
     service = build("calendar", "v3", credentials=credentials)
