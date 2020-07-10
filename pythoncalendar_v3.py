@@ -61,7 +61,8 @@ def calhelp(initials, calendarId, directory, sheet_secret_name, cal_secret_name,
     # makes available the google sheet
     gc = pygsheets.authorize(
         client_secret= directory + "/" + sheet_secret_name,
-        credentials_directory=directory, local=True)
+        credentials_directory=directory,
+        local=True)
     sh = gc.open_by_key("1UpfKu7Hrn8_-gR9BGGmM8s8dth3EAVVvx4sBybGNAHI")
 
     # makes available the google calendar
