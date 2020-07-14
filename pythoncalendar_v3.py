@@ -85,7 +85,7 @@ def calhelp(initials, calendarId, directory, sheet_secret_name, cal_secret_name,
         # delete future events
         timeMin = now.isoformat('T') + "-05:00"
         timeMax = (now + timedelta(days=90)).isoformat('T') + "-05:00"  # 90 days into the future to look for events to delete
-        result = service.events().list(calendarId=calendarId, timeMin=timeMin, timeMax=timeMax).execute()
+        result = service.events().list(calendarId=calendarId, timeMin=timeMin, timeMax=timeMax).execute() #pylint: disable=no-member
         delete_events_id = []
         for i in range(0, len(result['items'])):
             try:
@@ -97,11 +97,11 @@ def calhelp(initials, calendarId, directory, sheet_secret_name, cal_secret_name,
 
         for i in delete_events_id:
             try:
-                service.events().delete(calendarId=calendarId, eventId = i).execute()
+                service.events().delete(calendarId=calendarId, eventId = i).execute() #pylint: disable=no-member
                 j += 1
             except:
                 sleep(1)
-                service.events().delete(calendarId=calendarId, eventId = i).execute()
+                service.events().delete(calendarId=calendarId, eventId = i).execute() #pylint: disable=no-member
                 j += 1
         if j == 0:
             break
@@ -227,10 +227,10 @@ def calhelp(initials, calendarId, directory, sheet_secret_name, cal_secret_name,
         # adds calendar event
         if hasnumbers(end_string) and now < start_time:
             try:
-                service.events().insert(calendarId=calendarId, body=calevent).execute()  # DANGER LINE
+                service.events().insert(calendarId=calendarId, body=calevent).execute() #pylint: disable=no-member
             except:
                 sleep(1)
-                service.events().insert(calendarId=calendarId, body=calevent).execute()
+                service.events().insert(calendarId=calendarId, body=calevent).execute() #pylint: disable=no-member
 
 
 if __name__ == '__main__':
