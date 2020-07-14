@@ -25,4 +25,11 @@ fwrite($myfile, $string);
 
 echo "Hello all";
 
+// $output = shell_exec('
+// export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/root/bin;
+// python pythoncalendar_v3.py 2>&1;
+// echo "done";
+// ');
+// var_dump($output);
+
 ?>
