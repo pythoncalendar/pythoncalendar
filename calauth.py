@@ -25,9 +25,10 @@ def calauth(directory, cal_secret_path):
         flow = InstalledAppFlow.from_client_secrets_file(
         cal_secret_path,
         scopes=scopes)
-        credentials = flow.run_local_server(port=0)
-        with open(pklstr, "wb") as token:
-            pickle.dump(credentials, token)
+        credentials = flow.authorization_url()
+        print(credentials[0])
+        # with open(pklstr, "wb") as token:
+        #     pickle.dump(credentials, token)
 
 
 if __name__=="__main__":
