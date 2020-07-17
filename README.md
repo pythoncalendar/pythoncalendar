@@ -73,9 +73,9 @@ PyCal is a python script designed to take events on the Calvin Event Services ca
 
 6) (optional) Automate the execution of that BASH line. 
 
-# Contact:
+# Contact
 
 Email [me](add22@students.calvin.edu) (Adam DenHaan) with subject "PyCal" with questions.
 
-## Additional:
+## Additional
 The script is currently designed for the tech crew (sound & lighting), but can be easily adapted for other crews in event services, or any sheet in general. If you are code-savvy, lines 66, 110-111, and 124-133 can be modified to change the workbook, sheet, and column locations respectively.
