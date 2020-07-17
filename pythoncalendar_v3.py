@@ -234,9 +234,9 @@ def calhelp(initials, calendarId, directory, sheet_secret_name, cal_secret_name,
 
 
 if __name__ == '__main__':
-    calhelp(initials="ADH",
-    calendarId="adamdh00@gmail.com",
-    directory="/Users/adamdenhaan/Documents/pycalauth",
-    sheet_secret_name="client_secret_145372556979-b6di5pm67tdbpmipr6al0mein5eeq1aq.apps.googleusercontent.com.json",
-    cal_secret_name="client_secret_728152513941-fldfta8n2c25rm77k8c836ldvmlnk4ub.apps.googleusercontent.com.json",
-    colorID=11)
+    calhelp(initials=[YOUR INITIALS ON THE SHEET],
+    calendarId=[YOUR CALENDAR ACCOUNT],
+    directory=[THE CREDENTIALS DIRECTORY WHERE YOUR JSONS ARE STORED (as a string) ex: "/Users/adamdenhaan/Documents/PyCal/crednetials" ],
+    sheet_secret_name="SCS.json",
+    cal_secret_name="PCS.json",
+    colorID=11) #color values can be found on lines 6-16, feel free to change this to your liking
