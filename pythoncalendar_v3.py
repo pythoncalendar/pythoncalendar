@@ -238,5 +238,5 @@ if __name__ == '__main__':
     calendarId=[YOUR CALENDAR ACCOUNT],
     directory=[THE DIRECTORY WHERE YOUR FILE IS STORED (as a string) ex: "/Users/adamdenhaan/Documents/PyCal" ],
     sheet_secret_name="SCS.json",
-    cal_secret_name="client_secret_728152513941-fldfta8n2c25rm77k8c836ldvmlnk4ub.apps.googleusercontent.com.json",
+    cal_secret_name="PCS.json",
     colorID=11) #color values can be found on lines 6-16, feel free to change this to your liking
