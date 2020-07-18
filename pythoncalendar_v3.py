@@ -234,9 +234,9 @@ def calhelp(initials, calendarId, directory, sheet_secret_name, cal_secret_name,
 
 
 if __name__ == '__main__':
-    calhelp(initials=[YOUR INITIALS ON THE SHEET],
-    calendarId=[YOUR CALENDAR ACCOUNT],
-    directory=[THE CREDENTIALS DIRECTORY WHERE YOUR JSONS ARE STORED (as a string) ex: "/Users/adamdenhaan/Documents/PyCal/crednetials" ],
+    calhelp(initials=["YOUR INITIALS ON THE SHEET"],
+    calendarId=["YOUR CALENDAR ACCOUNT"],
+    directory=["THE CREDENTIALS DIRECTORY WHERE YOUR JSONS ARE STORED (as a string) ex:" "/Users/adamdenhaan/Documents/PyCal/crednetials" ],
     sheet_secret_name="SCS.json",
     cal_secret_name="PCS.json",
     colorID=11) #color values can be found on lines 6-16, feel free to change this to your liking
