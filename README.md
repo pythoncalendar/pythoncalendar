@@ -34,7 +34,7 @@ PyCal is a python script designed to take events on the Calvin Event Services ca
     8) On the left, click Credentials, and then "CREATE CREDENTIALS" > OAuth Client ID. Application type: Desktop App. You may keep the default name, and then hit CREATE, and OK.
     9) Back on the dashboard under "OAuth 2.0 Client IDs", click the download button on the right side of the screen. Move this to your credentials folder created earlier, and for convenience rename as "SCS.json".
 
-3) Set up the [Google Developers Console](https://console.developers.google.com/) for your **personal** account. This is similar to step 2 in many ways. If you want the events to school up on your google calendar registered with your Calvin email, skip steps 1-4 of below:
+3) Set up the [Google Developers Console](https://console.developers.google.com/) for your **personal** account. This is similar to step 2 in many ways. If you want the events to school up on your google calendar registered with your Calvin email, skip this step (except for 3.5) and in step 4, edit line 241 in the python file to say {cal_secret_name="PCS.json",}:
 
     1) Be sure you are logged into your personal account (or whichever account you would like the events to show up on).
     2) Agree to terms and services if you haven't already.
