@@ -71,7 +71,7 @@ PyCal is a python script designed to take events on the Calvin Event Services ca
     ```
     The first time you run this, you will be prompted to log in twice, first to your **school** account, and then to your **personal** account. After this, running the script will proceed automatically, and you can run after meetings, or whenever you would like your calendar update with the events.
 
-6) (optional) Automate the execution of that BASH line. 
+6) Run the script anytime you want your calendar updated. You can automate this process using either [Windows Task Scheduler](https://www.jcchouinard.com/python-automation-using-task-scheduler/) or [Crontab](https://www.jessicayung.com/automate-running-a-script-using-crontab/) on Apple.
 
 # Contact
 
